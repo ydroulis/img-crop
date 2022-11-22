@@ -4,10 +4,6 @@ interface ContainerProps {
     isOpen: boolean;
 }
 
-interface AvatarImgProps {
-    // src: string;
-}
-
 export const Container = styled.div<ContainerProps>`
     display: ${props => props.isOpen ? 'flex' : 'none'};
     align-items: center;
