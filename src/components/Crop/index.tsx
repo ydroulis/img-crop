@@ -6,6 +6,8 @@ import getCroppedImg from '../../utils/cropImage';
 
 interface CropProps {
     src: string;
+    zoom: number;
+    setZoom: React.Dispatch<SetStateAction<number>>
     setImg: React.Dispatch<SetStateAction<null>>;
     setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 }
@@ -16,8 +18,7 @@ interface CropProps {
 //     setZoom: React.Dispatch<SetStateAction<number>>
 // }
 
-const Crop = ({ src, setImg, setIsOpen }: CropProps) => {
-    const [zoom, setZoom] = useState(1);
+const Crop = ({ src, setImg, setIsOpen, zoom, setZoom }: CropProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
@@ -38,6 +39,7 @@ const Crop = ({ src, setImg, setIsOpen }: CropProps) => {
           console.log('donee', { croppedImage })
           setImg(croppedImage);
           setIsOpen(false);
+          setZoom(1);
         } catch (e) {
           console.error(e)
         }
