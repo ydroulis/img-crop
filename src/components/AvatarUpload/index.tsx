@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import CropDialog from '../CropDialog';
+import ErrorDialog from '../ErrorDialog';
 import * as S from './style';
 
 interface FileType {
@@ -12,15 +13,21 @@ const AvatarUpload = () => {
     const [files, setFiles] = useState<FileType>([]);
     const [src, setSrc] = useState('');
     const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
+    const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
     const [imgResult, setImgResult] = useState(null);
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
             'image/*': []
         },
         onDrop: acceptedFiles => {
-            const file = Object.assign(acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]) });
-            setIsCropDialogOpen(true);
-            setSrc(file.preview);
+            try {
+                const file = Object.assign(acceptedFiles[0], { preview: URL.createObjectURL(acceptedFiles[0]) });
+                setIsCropDialogOpen(true);
+                setSrc(file.preview);
+            } catch (e) {
+                console.error(e)
+                setIsErrorDialogOpen(true)
+            }
         }
     });
 
@@ -32,7 +39,7 @@ const AvatarUpload = () => {
     return (
         <S.Container>
             <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
+                <input {...getInputProps()} data-testid='dropzone'/>
                 <S.DropZone>
                     {imgResult && <S.Avatar src={imgResult} />}
                     <S.Instructions>
@@ -45,6 +52,7 @@ const AvatarUpload = () => {
                 </S.DropZone>
             </div>
             <CropDialog isOpen={isCropDialogOpen} src={src} setIsOpen={setIsCropDialogOpen} setImg={setImgResult} />
+            <ErrorDialog isOpen={isErrorDialogOpen} setIsOpen={setIsErrorDialogOpen}/>
         </S.Container>
     )
 }
