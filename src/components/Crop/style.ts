@@ -16,6 +16,7 @@ export const CropperContainer = styled.div`
     width: 117px;
     height: 117px;
 
+
     img + div{
         width: 117px !important;
         height: 117px !important;

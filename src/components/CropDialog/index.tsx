@@ -20,9 +20,9 @@ const CropDialog = ({ isOpen, setIsOpen, setImg, src }: CropDialogProps) => {
 
     return (
         <S.Container isOpen={isOpen}>
-            <Crop src={src} setImg={setImg} setIsOpen={setIsOpen} zoom={zoom} setZoom={setZoom}/>
+            <Crop src={src} setImg={setImg} setIsOpen={setIsOpen} zoom={zoom} setZoom={setZoom} />
             <S.CloseButton onClick={handleClose}>
-                <MdClose className='close'/>
+                <MdClose className='close' data-testid='close-button' />
             </S.CloseButton>
         </S.Container>
     )

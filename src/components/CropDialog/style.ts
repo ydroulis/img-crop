@@ -12,7 +12,6 @@ export const Container = styled.div<ContainerProps>`
     height: 177px;
     border-radius: 8px;
     background: #F2F5F8;
-    padding: 0px 28px 0px 31px;
 `
 
 export const CloseButton = styled.button`

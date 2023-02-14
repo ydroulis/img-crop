@@ -4,13 +4,9 @@ import CropDialog from '../CropDialog';
 import ErrorDialog from '../ErrorDialog';
 import * as S from './style';
 
-interface FileType {
-    forEach: any;
-    preview?: any
-}
 
 const AvatarUpload = () => {
-    const [files, setFiles] = useState<FileType>([]);
+    const [files, setFiles] = useState([]);
     const [src, setSrc] = useState('');
     const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
     const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
@@ -25,7 +21,6 @@ const AvatarUpload = () => {
                 setIsCropDialogOpen(true);
                 setSrc(file.preview);
             } catch (e) {
-                console.error(e)
                 setIsErrorDialogOpen(true)
             }
         }
@@ -37,9 +32,9 @@ const AvatarUpload = () => {
     }, []);
 
     return (
-        <S.Container>
+        <S.Container className='drop'>
             <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} data-testid='dropzone'/>
+                <input {...getInputProps()} data-testid='dropzone' />
                 <S.DropZone>
                     {imgResult && <S.Avatar src={imgResult} />}
                     <S.Instructions>
@@ -52,7 +47,7 @@ const AvatarUpload = () => {
                 </S.DropZone>
             </div>
             <CropDialog isOpen={isCropDialogOpen} src={src} setIsOpen={setIsCropDialogOpen} setImg={setImgResult} />
-            <ErrorDialog isOpen={isErrorDialogOpen} setIsOpen={setIsErrorDialogOpen}/>
+            <ErrorDialog isOpen={isErrorDialogOpen} setIsOpen={setIsErrorDialogOpen} />
         </S.Container>
     )
 }
